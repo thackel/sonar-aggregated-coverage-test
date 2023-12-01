@@ -1,0 +1,10 @@
+pluginManagement {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+rootProject.name = 'sonar-aggregated-coverage-test'
+include ':sub1'
+include ':sub2'

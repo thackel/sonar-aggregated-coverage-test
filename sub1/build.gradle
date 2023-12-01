@@ -1,0 +1,40 @@
+plugins {
+    id 'java-library'
+    id 'jacoco'
+}
+
+project.description = 'sub1'
+
+dependencies {
+    // Use JUnit 5 and Mockito
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
+}
+jacoco {
+    toolVersion = "0.8.11"
+}
+
+test {
+    finalizedBy jacocoTestReport
+    useJUnitPlatform()
+}
+
+jacocoTestReport {
+    dependsOn test
+    // import any *.exec file found instead of only the standard /build/jacoco/test.exec
+    getExecutionData().setFrom(fileTree(project.layout.buildDirectory).include("/jacoco/*.exec"))
+    reports {
+        html.required = true
+        xml {
+            // create the XML report data (can be used by Sonarqube)
+            required = true
+            outputLocation = layout.buildDirectory.file("reports/jacoco/jacoco.xml")
+        }
+    }
+}
+
+repositories {
+    mavenLocal();
+    mavenCentral()
+    gradlePluginPortal()
+}
